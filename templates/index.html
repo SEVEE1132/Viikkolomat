@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634667202963008"
+     crossorigin="anonymous"></script>
+    <meta name="google-site-verification" content="ZvPSX9ago8fkIENfyQVBE9isE8Fkn2aQGhRnGHVarCY" />
+    <meta name="google-site-verification" content="7Xsnw9cD2YBpkojBJQSwdu8-KO4euEMFA5-X7NuHUYY" />
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="fi">
+	<title>Lomaviikot</title>
+    <link rel="icon" type="image/x-icon" href="/images/viikkolomat.ico">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EWKHJ174CD"></script>
+<body>
+	<header>
+        <div class="menu-btn" onclick="toggleMenu()">Menu</div>
+        <div class="menu-dropdown" id="menuDropdown">
+            <a href="#cottages">Vuokrattavat viikot</a>
+            <a href="#about">Tietoa</a>
+            <a href="#contact">Ota yhteyttä</a>
+        </div>
+		<h1>Viikkolomat</h1>
+		<!-- <nav>
+			<ul>
+				<li><a href="#cottages">Viikot</a></li>
+				<li><a href="#about">Tietoa</a></li>
+				<li><a href="#contact">Ota yhteytt&#228;</a></li>
+			</ul>
+		</nav> -->
+	</header>
+	<main>
+
+        <section id="cottages">
+            <!--<h2>Luo oma ilmoitus</h2>
+            <label>Hinta: 10&#8364;/Vuosi</label>
+            <br><button onclick="openNewPage('ilmoitus.html')">T&#228;yt&#228; ilmoituslomake</button></br>-->
+            <h2>Vuokrattavat viikot</h2>
+            <div>
+                <label for="locationFilter">Kohde:</label>
+                <select id="locationFilter">
+                    <option value="all">Kaikki</option>
+                    <option value="levi">Levi</option>
+                    <option value="katinkulta">Katinkulta</option>
+                </select>
+            </div>
+            <div>
+                <label for="availabilityFilter">Viikko:</label>
+                <select id="availabilityFilter">
+                    <option value="all">Kaikki</option>
+                    <option value="8">8</option>
+                    <option value="11">11</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+            </div>
+            <div>
+                <label for="saatavuusFilter">Saatavuus:</label>
+                <select id="saatavuusFilter">
+                    <option value="all">Kaikki</option>
+                    <option value="varattu">Varattu</option>
+                    <option value="vapaa">Vapaa</option>
+                </select>
+            </div>
+            <div>
+                <label for="priceFilter">Tyyppi:</label>
+                <select id="priceFilter">
+                    <option value="all">Kaikki</option>
+                    <option value="vuokra">Vuokra</option>
+                    <option value="myynti">Myynti</option>
+                </select>
+            </div>
+            <table id="myTable">
+                <thead>
+                <tr>
+                    <th>Kohde</th>
+                    <th>Huoneisto</th>
+                    <th>Viikko</th>
+                    <th>Tyyppi</th>
+                    <th>Vuodepaikat</th>
+                    <th>Vuokrahinta</th>
+                    <th>Myyntihinta</th>
+                    <th>Muuta</th>
+                    <th>Saatavuus</th>
+                    <th>Yhteystiedot</th>
+                </tr>
+                </thead>
+                <tbody id="cottageList">
+                    <!-- hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                    hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh -->
+                <tr>
+                    <td>Levi</td>
+                    <td>Aruudenia M</td>
+                    <td>8</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>780</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                    <!-- <td><button onclick="openNewPage('lisatietoja.html')">Lis&#228;tietoja</button></td> -->
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Rakkavaara Club1 A1</td>
+                    <td>8</td>
+                    <td>2mh</td>
+                    <td>4+2</td>
+                    <td>690</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>13C2</td>
+                    <td>8</td>
+                    <td>1mh+parvi</td>
+                    <td>4+2</td>
+                    <td>890</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>2A2</td>
+                    <td>8</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>1150</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>17C1</td>
+                    <td>8</td>
+                    <td>2mh</td>
+                    <td>4+2</td>
+                    <td>920</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>13B</td>
+                    <td>8</td>
+                    <td>1mh+parvi</td>
+                    <td>4+2</td>
+                    <td>890</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>6A2</td>
+                    <td>11</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>850</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Rakkavaara Club LTD H4</td>
+                    <td>13</td>
+                    <td>1mh+parvi</td>
+                    <td>6</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Aruudenia K</td>
+                    <td>14</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>780</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Abcott D</td>
+                    <td>14</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>800</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Rakkavaara Club LTD H4</td>
+                    <td>15</td>
+                    <td>1mh+parvi</td>
+                    <td>6</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Levi</td>
+                    <td>Aruudenia M</td>
+                    <td>15</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>750</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>13E1</td>
+                    <td>27</td>
+                    <td>1mh+parvi</td>
+                    <td>4+2</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>20C11</td>
+                    <td>27</td>
+                    <td>2mh</td>
+                    <td>4</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>10A1</td>
+                    <td>28</td>
+                    <td>1mh+parvi</td>
+                    <td>4</td>
+                    <td>750</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>12A2</td>
+                    <td>28</td>
+                    <td>3mh+parvi</td>
+                    <td>8</td>
+                    <td>1250</td>
+                    <td></td>
+                    <td>Keila</td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>13C5</td>
+                    <td>29</td>
+                    <td>1mh+parvi</td>
+                    <td>4+2</td>
+                    <td>750</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>12A2</td>
+                    <td>29</td>
+                    <td>3mh+parvi</td>
+                    <td>8</td>
+                    <td>1250</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>7A1</td>
+                    <td>30</td>
+                    <td>2mh+parvi</td>
+                    <td>6</td>
+                    <td>950</td>
+                    <td></td>
+                    <td>14 Kylpyl&#228;</td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>8F1</td>
+                    <td>30</td>
+                    <td>1mh+parvi</td>
+                    <td>4</td>
+                    <td>780</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>9I1</td>
+                    <td>30</td>
+                    <td>1mh+parvi</td>
+                    <td>4</td>
+                    <td>780</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>9C4</td>
+                    <td>31</td>
+                    <td>1mh+parvi</td>
+                    <td>4</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>1D2</td>
+                    <td>31</td>
+                    <td>3mh+parvi</td>
+                    <td>8</td>
+                    <td>1250</td>
+                    <td></td>
+                    <td>Keila</td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>20B3</td>
+                    <td>31</td>
+                    <td>1mh</td>
+                    <td>2+2</td>
+                    <td>720</td>
+                    <td></td>
+                    <td></td>
+                    <td>Vapaa</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Katinkulta</td>
+                    <td>3F2</td>
+                    <td>31</td>
+                    <td>1mh+parvi</td>
+                    <td>4</td>
+                    <td>750</td>
+                    <td></td>
+                    <td></td>
+                    <td>Varattu</td>
+                    <td>
+                        <!-- <div><a>Ari Heino</a></div> -->
+                        <div><a href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com</a></div>
+                        <div><a>040 0829928</a></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+<footer>
+	<p>&copy; 2024 Lomaviikot. All rights reserved.</p>
+</footer>
