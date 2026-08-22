@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mökkien hallinta</title>
+</head>
+
+<body>
+
+    <h1>Mökkien hallinta</h1>
+
+    {% if cottages %}
+
+        {% for cottage in cottages %}
+
+            <div style="
+                border: 1px solid #ccc;
+                padding: 20px;
+                margin-bottom: 20px;
+            ">
+
+                <h2>
+                    {{ cottage.apartment }}
+                </h2>
+
+                <p>
+                    <strong>Maksutunnus:</strong>
+                    {{ cottage.payment_code }}
+                </p>
+
+                <p>
+                    <strong>Sijainti:</strong>
+                    {{ cottage.location }}
+                </p>
+
+                <p>
+                    <strong>Viikko:</strong>
+                    {{ cottage.week or "-" }}
+                </p>
+
+                <p>
+                    <strong>Tyyppi:</strong>
+                    {{ cottage.type or "-" }}
+                </p>
+
+                <p>
+                    <strong>Vuoteet:</strong>
+                    {{ cottage.beds or "-" }}
+                </p>
+
+                <p>
+                    <strong>Vuokra:</strong>
+                    {{ cottage.rent or "-" }} €
+                </p>
+
+                <p>
+                    <strong>Omistaja:</strong>
+                    {{ cottage.contact_name or "-" }}
+                </p>
+
+                <p>
+                    <strong>Sähköposti:</strong>
+                    {{ cottage.contact_email or "-" }}
+                </p>
+
+                <p>
+                    <strong>Puhelin:</strong>
+                    {{ cottage.contact_phone or "-" }}
+                </p>
+
+                <p>
+                    <strong>Maksu:</strong>
+                    {{ cottage.payment_status }}
+                </p>
+
+                <form
+                    method="POST"
+                    action="/admin/hyvaksy/{{ cottage.id }}"
+                >
+
+                    <button type="submit">
+                        Maksu vastaanotettu – julkaise mökki
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>
+            Ei odottavia mökkejä.
+        </p>
+
+    {% endif %}
+
+</body>
+
+</html>

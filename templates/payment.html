@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+Maksu | Viikkolomat
+{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="form-intro">
+
+        <p class="eyebrow">
+            Ilmoitus vastaanotettu
+        </p>
+
+        <h1>
+            Vielä yksi vaihe.
+        </h1>
+
+        <p class="intro-text">
+            Mökkisi tiedot on vastaanotettu.
+            Ilmoituksen julkaiseminen maksaa 15 € vuodessa.
+        </p>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <p class="eyebrow">
+            Ilmoituksen tiedot
+        </p>
+
+        <h2>
+            {{ cottage.apartment }}
+        </h2>
+
+        <p>
+            {{ cottage.location }}
+        </p>
+
+        <p>
+            <strong>Ilmoituksen tunnus:</strong>
+            {{ cottage_id }}
+        </p>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <p class="eyebrow">
+            MobilePay
+        </p>
+
+        <h2>
+            Maksa 15 €
+        </h2>
+
+        <p>
+            Lähetä MobilePay-maksu seuraavaan numeroon:
+        </p>
+
+        <div class="payment-code">
+            0442312680 Severi Saku Mikael Heino
+        </div>
+
+        <p>
+            <strong>Maksun määrä:</strong> 15 €
+        </p>
+
+        <p>
+            Kirjoita maksun viestiksi:
+        </p>
+
+        <div class="payment-code">
+            {{ payment_code }}
+        </div>
+
+    </div>
+
+
+    <div class="form-section">
+
+        <p class="eyebrow">
+            Maksun jälkeen
+        </p>
+
+        <h2>
+            Mitä tapahtuu seuraavaksi?
+        </h2>
+
+        <p>
+            Tarkistamme MobilePay-maksun ja julkaisemme
+            ilmoituksesi sivustolla.
+        </p>
+
+        <p>
+            Saat sähköpostiisi ilmoituksen, kun mökkisi on julkaistu.
+            Samassa sähköpostissa saat henkilökohtaisen linkin,
+            jonka avulla voit myöhemmin muokata ilmoitustasi.
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

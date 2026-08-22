@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}
+Lisää oma lomaviikko | Viikkolomat
+{% endblock %}
+
+{% block content %}
+
+<section class="form-page">
+
+    <div class="form-intro">
+
+        <p class="eyebrow">
+            Ilmoita lomaviikkosi
+        </p>
+
+        <h1>
+            Lisää oma lomaviikkosi
+        </h1>
+
+        <p class="intro-text">
+            Lisää omistamasi lomaviikko Viikkolomat-sivustolle.
+            Ilmoituksen vuosihinta on 15 €.
+        </p>
+
+    </div>
+
+
+    <form method="POST" class="cottage-form">
+
+        <div class="form-section">
+
+            <p class="eyebrow">
+                Lomaviikon tiedot
+            </p>
+
+            <label>
+                Sijainti
+
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Esim. Levi"
+                    required
+                >
+            </label>
+
+            <label>
+                Mökki / huoneisto
+
+                <input
+                    type="text"
+                    name="apartment"
+                    placeholder="Esim. Rakkavaara B1"
+                    required
+                >
+            </label>
+
+            <label>
+                Viikko
+
+                <input
+                    type="number"
+                    name="week"
+                    min="1"
+                    max="53"
+                    placeholder="Esim. 8"
+                    required
+                >
+            </label>
+
+            <label>
+                Tyyppi
+
+                <input
+                    type="text"
+                    name="type"
+                    placeholder="Esim. 2mh+parvi"
+                >
+            </label>
+
+            <label>
+                Vuodepaikat
+
+                <input
+                    type="text"
+                    name="beds"
+                    placeholder="Esim. 6"
+                >
+            </label>
+
+            <label>
+                Vuokra (€)
+
+                <input
+                    type="number"
+                    name="rent"
+                    step="1"
+                    placeholder="Esim. 850"
+                >
+            </label>
+
+            <label>
+                Myyntihinta
+
+                <input
+                    type="text"
+                    name="sale"
+                    placeholder="Jätä tyhjäksi, jos ei myynnissä"
+                >
+            </label>
+
+            <label>
+                Lisätiedot
+
+                <textarea
+                    name="extra"
+                    rows="5"
+                    placeholder="Esim. sauna, kylpylä, keilaus..."
+                ></textarea>
+
+            </label>
+
+            <label>
+                Saatavuus
+
+                <select name="status">
+
+                    <option value="Vapaa">
+                        Vapaa
+                    </option>
+
+                    <option value="Varattu">
+                        Varattu
+                    </option>
+
+                </select>
+
+            </label>
+
+        </div>
+
+
+        <div class="form-section">
+
+            <p class="eyebrow">
+                Yhteystiedot
+            </p>
+
+            <p class="form-help">
+                Nämä tiedot näkyvät ilmoituksessa, jotta kiinnostuneet
+                voivat ottaa sinuun yhteyttä.
+            </p>
+
+            <label>
+                Nimi
+
+                <input
+                    type="text"
+                    name="contact_name"
+                    placeholder="Nimi"
+                    required
+                >
+            </label>
+
+            <label>
+                Sähköposti
+
+                <input
+                    type="email"
+                    name="contact_email"
+                    placeholder="sahkoposti@example.com"
+                    required
+                >
+            </label>
+
+            <label>
+                Puhelin
+
+                <input
+                    type="tel"
+                    name="contact_phone"
+                    placeholder="040 123 4567"
+                >
+            </label>
+
+        </div>
+
+
+        <div class="form-submit">
+
+            <div>
+
+                <strong>
+                    Hinta: 15 € / vuosi
+                </strong>
+
+                <p>
+                    Maksu suoritetaan ilmoituksen lähettämisen jälkeen.
+                </p>
+
+            </div>
+
+            <button
+                type="submit"
+                class="primary-button"
+            >
+                Lähetä ilmoitus
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

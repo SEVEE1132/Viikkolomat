@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="language" content="fi">
+    <meta name="google-site-verification" content="ZvPSX9ago8fkIENfyQVBE9isE8Fkn2aQGhRnGHVarCY">
+    <meta name="google-site-verification" content="7Xsnw9cD2YBpkojBJQSwdu8-KO4euEMFA5-X7NuHUYY">
+    <title>Viikkolomat | Vuokrattavat lomaviikot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634667202963008" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="/">Viikkolomat<span>.</span></a>
+            <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menuDropdown">Valikko</button>
+            <nav class="menu-dropdown" id="menuDropdown" aria-label="Päänavigaatio">
+                <a href="#cottages">Vuokrattavat viikot</a>
+                <a href="#about">Tietoa</a>
+                <a href="#contact">Yhteystiedot</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="intro" aria-labelledby="page-title">
+            <p class="eyebrow">Löydä seuraava lomasi</p>
+            <h1 id="page-title">Vuokrattavat lomaviikot</h1>
+            <p class="intro-text">Selkeät kohteet, ajantasainen saatavuus ja suora yhteys varausta varten.</p>
+            <a href="/lisaa-mokki" class="primary-button">
+                Lisää oma lomaviikkosi
+                <span aria-hidden="true">↗</span>
+            </a>
+            <div class="stats" aria-label="Ilmoitusten yhteenveto">
+                <div><strong>{{ cottages|length }}</strong><span>ilmoitusta</span></div>
+                <div><strong>{{ cottages|selectattr('status', 'equalto', 'Vapaa')|list|length }}</strong><span>vapaana</span></div>
+                <div><strong>{{ cottages|map(attribute='location')|unique|list|length }}</strong><span>kohdetta</span></div>
+            </div>
+        </section>
+        <section id="cottages" class="listing-section" aria-labelledby="listing-title">
+            <div class="section-heading">
+                <div><p class="eyebrow">Saatavuus</p><h2 id="listing-title">Selaa viikkoja</h2></div>
+                <p id="resultCount" class="result-count"></p>
+            </div>
+            <div class="filters" aria-label="Suodata ilmoituksia">
+                <label>Kohde<select id="locationFilter"><option value="all">Kaikki kohteet</option></select></label>
+                <label>Viikko<select id="availabilityFilter"><option value="all">Kaikki viikot</option></select></label>
+                <label>Saatavuus<select id="saatavuusFilter"><option value="all">Kaikki</option><option value="vapaa">Vapaa</option><option value="varattu">Varattu</option></select></label>
+                <label>Tyyppi<select id="priceFilter"><option value="all">Kaikki</option><option value="vuokra">Vuokrattavat</option><option value="myynti">Myytävät</option></select></label>
+            </div>
+            <div id="cottageList" class="cottage-grid">
+                {% for cottage in cottages %}
+                <article class="cottage-card" data-location="{{ cottage.location|lower }}" data-week="{{ cottage.week }}" data-status="{{ cottage.status|lower }}" data-rent="{{ cottage.rent }}" data-sale="{{ cottage.sale }}">
+                    <div class="card-topline"><span class="location">{{ cottage.location }}</span><span class="status status-{{ cottage.status|lower }}">{{ cottage.status }}</span></div>
+                    <h3>{{ cottage.apartment }}</h3>
+                    <p class="cottage-type">{{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa</p>
+                    <div class="card-details"><div><span>Viikko</span><strong>{{ cottage.week }}</strong></div><div><span>Vuokra</span><strong>{{ cottage.rent }} €</strong></div>{% if cottage.extra %}<div><span>Lisätietoja</span><strong>{{ cottage.extra }}</strong></div>{% endif %}</div>
+                    <div class="card-contact">
+                        <span class="contact-label">Yhteystiedot</span>
+                        {% if cottage.contact.name %}<strong>{{ cottage.contact.name }}</strong>{% endif %}
+                        {% if cottage.contact.email %}<a href="mailto:{{ cottage.contact.email }}?subject=Viikko%20{{ cottage.week }}%20-%20{{ cottage.apartment }}">{{ cottage.contact.email }}</a>{% endif %}
+                        {% if cottage.contact.phone %}<a href="tel:{{ cottage.contact.phone|replace(' ', '') }}">{{ cottage.contact.phone }}</a>{% endif %}
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            <p id="noResults" class="no-results" hidden>Valituilla suodattimilla ei löytynyt lomaviikkoja.</p>
+        </section>
+        <section id="about" class="info-section"><p class="eyebrow">Tietoa palvelusta</p><h2>Viikkolomat kokoaa vapaat lomaosakkeet ja vuokrattavat viikot yhteen paikkaan. Varaus sovitaan suoraan ilmoittajan kanssa.</h2></section>
+        <section id="contact" class="contact-section"><div><p class="eyebrow">Ota yhteyttä</p><h2>Löysitkö sopivan viikon tai haluatko myydä omasi?</h2></div><a class="primary-link" href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com <span aria-hidden="true">↗</span></a></section>
+    </main>
+    <footer><p>&copy; 2026 Lomaviikot</p></footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
