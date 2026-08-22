@@ -213,7 +213,7 @@ def hyvaksy_mokki(cottage_id):
 
     # Muokkauslinkki
     edit_link = (
-        "http://127.0.0.1:5000/"
+        "http://viikkolomat.com/"
         "muokkaa-mokkia/"
         + cottage["edit_token"]
     )
