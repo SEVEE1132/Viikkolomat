@@ -179,10 +179,34 @@ def home():
     # LUODAAN VASTAUS
     # -------------------------
 
+    # -------------------------
+    # JÄRJESTÄ MÖKIT VIIKON MUKAAN
+    # -------------------------
+
+    cottages = old_cottages + new_cottages
+
+    cottages.sort(
+        key=lambda cottage: (
+            cottage.get("week") is None,
+            cottage.get("week") or 999
+        )
+    )
+
+    # Tehdään viikkoryhmät
+    weeks = []
+
+    for cottage in cottages:
+        week = cottage.get("week")
+
+        if week not in weeks:
+            weeks.append(week)
+
+
     response = make_response(
         render_template(
             "index.html",
             cottages=cottages,
+            weeks=weeks,
             today_visitors=today_visitors,
             week_visitors=week_visitors
         )

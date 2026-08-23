@@ -37,19 +37,54 @@ function filterCards() {
     const week = availabilityFilter.value;
     const status = saatavuusFilter.value;
     const type = priceFilter.value;
+
     let visibleCount = 0;
 
     cottageCards.forEach((card) => {
-        const visible = (location === 'all' || card.dataset.location === location)
-            && (week === 'all' || card.dataset.week === week)
-            && (status === 'all' || card.dataset.status === status)
-            && (type === 'all' || (type === 'vuokra' && card.dataset.rent) || (type === 'myynti' && card.dataset.sale));
+
+        const matchesLocation =
+            location === 'all' ||
+            card.dataset.location === location;
+
+        const matchesWeek =
+            week === 'all' ||
+            card.dataset.week === week;
+
+        const matchesStatus =
+            status === 'all' ||
+            card.dataset.status === status;
+
+        const matchesType =
+            type === 'all' ||
+            (type === 'vuokra' && card.dataset.rent) ||
+            (type === 'myynti' && card.dataset.sale);
+
+        const visible =
+            matchesLocation &&
+            matchesWeek &&
+            matchesStatus &&
+            matchesType;
+
         card.hidden = !visible;
-        if (visible) visibleCount += 1;
+
+        if (visible) {
+            visibleCount += 1;
+        }
+    });
+
+    // Piilotetaan tyhjät viikkoryhmät
+    document.querySelectorAll('.week-group').forEach((group) => {
+
+        const visibleCards =
+            group.querySelectorAll('.cottage-card:not([hidden])');
+
+        group.hidden = visibleCards.length === 0;
     });
 
     noResults.hidden = visibleCount !== 0;
-    resultCount.textContent = `${visibleCount} ilmoitusta`;
+
+    resultCount.textContent =
+        `${visibleCount} ilmoitusta`;
 }
 
 populateFilter(locationFilter, [...new Set(cottageCards.map((card) => card.dataset.location))], 'Kaikki kohteet');
