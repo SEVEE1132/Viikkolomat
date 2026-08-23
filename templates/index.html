@@ -59,8 +59,10 @@
                 <label>Saatavuus<select id="saatavuusFilter"><option value="all">Kaikki</option><option value="vapaa">Vapaa</option><option value="varattu">Varattu</option></select></label>
                 <label>Tyyppi<select id="priceFilter"><option value="all">Kaikki</option><option value="vuokra">Vuokrattavat</option><option value="myynti">Myytävät</option></select></label>
             </div>
-            <div id="cottageList" class="cottage-grid">
-                {% for cottage in cottages %}
+            <div id="cottageList">
+
+                {% for week in weeks %}
+
                 <section class="week-group">
 
                     <div class="week-heading">
@@ -77,8 +79,8 @@
                             data-location="{{ cottage.location|lower }}"
                             data-week="{{ cottage.week }}"
                             data-status="{{ cottage.status|lower }}"
-                            data-rent="{{ cottage.rent }}"
-                            data-sale="{{ cottage.sale }}"
+                            data-rent="{{ cottage.rent or '' }}"
+                            data-sale="{{ cottage.sale or '' }}"
                         >
 
                             <div class="card-topline">
@@ -149,7 +151,9 @@
                     </div>
 
                 </section>
+
                 {% endfor %}
+
             </div>
             <p id="noResults" class="no-results" hidden>Valituilla suodattimilla ei löytynyt lomaviikkoja.</p>
         </section>

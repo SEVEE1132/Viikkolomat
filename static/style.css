@@ -336,3 +336,26 @@ footer p { max-width: 1180px; margin: auto; }
     font: 700 20px Arial, sans-serif;
     letter-spacing: 1px;
 }
+
+.week-group {
+    margin-bottom: 64px;
+}
+
+.week-group[hidden] {
+    display: none;
+}
+
+.week-heading {
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.week-heading h2 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+.week-heading .eyebrow {
+    margin-bottom: 6px;
+}
