@@ -32,17 +32,6 @@
                 <span aria-hidden="true">↗</span>
             </a>
             <div class="stats" aria-label="Ilmoitusten yhteenveto">
-                <div class="visitor-stats">
-                    <div>
-                        <strong>{{ today_visitors }}</strong>
-                        <span>kävijää tänään</span>
-                    </div>
-
-                    <div>
-                        <strong>{{ week_visitors }}</strong>
-                        <span>kävijää tällä viikolla</span>
-                    </div>
-                </div>
                 <div><strong>{{ cottages|length }}</strong><span>ilmoitusta</span></div>
                 <div><strong>{{ cottages|selectattr('status', 'equalto', 'Vapaa')|list|length }}</strong><span>vapaana</span></div>
                 <div><strong>{{ cottages|map(attribute='location')|unique|list|length }}</strong><span>kohdetta</span></div>
