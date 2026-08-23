@@ -72,6 +72,40 @@ h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 400; }
 .stats div { display: grid; gap: 2px; }
 .stats strong { font-size: 26px; font-weight: 400; }
 .stats span, .result-count, .cottage-type, .card-details span { color: var(--muted); font: 13px Arial, sans-serif; }
+.visitor-stats {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+}
+
+.visitor-stats div {
+    display: grid;
+    gap: 2px;
+    padding-right: 24px;
+}
+
+.visitor-stats strong {
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.visitor-stats span {
+    color: var(--muted);
+    font: 12px Arial, sans-serif;
+}
+
+@media (max-width: 560px) {
+    .visitor-stats {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .visitor-stats div {
+        padding-right: 0;
+    }
+}
 .listing-section { border-top: 1px solid var(--line); padding: 56px 0 96px; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
 .section-heading h2 { margin-bottom: 0; }

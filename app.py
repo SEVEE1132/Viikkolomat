@@ -120,13 +120,71 @@ def home():
     cottages = old_cottages + new_cottages
 
     # -------------------------
+    # KÄVIJÄMÄÄRÄT
+    # -------------------------
+
+    from datetime import datetime, timezone, timedelta
+
+    now = datetime.now(timezone.utc)
+
+    # Tänään
+    today_start = now.replace(
+        hour=0,
+        minute=0,
+        second=0,
+        microsecond=0
+    )
+
+    # Viikon alku (maanantai)
+    week_start = today_start - timedelta(
+        days=today_start.weekday()
+    )
+
+    try:
+
+        today_result = (
+            supabase
+            .table("page_views")
+            .select("visitor_id")
+            .gte("created_at", today_start.isoformat())
+            .execute()
+        )
+
+        week_result = (
+            supabase
+            .table("page_views")
+            .select("visitor_id")
+            .gte("created_at", week_start.isoformat())
+            .execute()
+        )
+
+        today_visitors = len(set(
+            row["visitor_id"]
+            for row in today_result.data
+        ))
+
+        week_visitors = len(set(
+            row["visitor_id"]
+            for row in week_result.data
+        ))
+
+    except Exception as e:
+
+        print("Kävijämäärien haku epäonnistui:", e)
+
+        today_visitors = 0
+        week_visitors = 0
+
+    # -------------------------
     # LUODAAN VASTAUS
     # -------------------------
 
     response = make_response(
         render_template(
             "index.html",
-            cottages=cottages
+            cottages=cottages,
+            today_visitors=today_visitors,
+            week_visitors=week_visitors
         )
     )
 
