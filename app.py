@@ -4,9 +4,10 @@ import resend
 load_dotenv()
 from markupsafe import escape
 from supabase import create_client
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, make_response
 from flask import send_from_directory
 import secrets
+import uuid
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY")
@@ -52,13 +53,35 @@ DEFAULT_CONTACT = {"email": "lomaviikot@outlook.com"}
 @app.route("/")
 def home():
 
-    # Vanhat koodissa olevat mökit
+    # -------------------------
+    # KÄVIJÄLASKURI
+    # -------------------------
+
+    visitor_id = request.cookies.get("visitor_id")
+
+    if not visitor_id:
+        visitor_id = str(uuid.uuid4())
+
+    try:
+        supabase.table("page_views").insert({
+            "visitor_id": visitor_id
+        }).execute()
+    except Exception as e:
+        print("Kävijän tallennus epäonnistui:", e)
+
+    # -------------------------
+    # VANHAT MÖKIT
+    # -------------------------
+
     old_cottages = [
         {**cottage, "contact": cottage.get("contact", DEFAULT_CONTACT)}
         for cottage in COTTAGES
     ]
 
-    # Supabasessa olevat julkaistut mökit
+    # -------------------------
+    # SUPABASEN MÖKIT
+    # -------------------------
+
     result = (
         supabase
         .table("cottages")
@@ -90,13 +113,33 @@ def home():
             }
         })
 
-    # Yhdistetään vanhat ja uudet
+    # -------------------------
+    # YHDISTETÄÄN MÖKIT
+    # -------------------------
+
     cottages = old_cottages + new_cottages
 
-    return render_template(
-        "index.html",
-        cottages=cottages
+    # -------------------------
+    # LUODAAN VASTAUS
+    # -------------------------
+
+    response = make_response(
+        render_template(
+            "index.html",
+            cottages=cottages
+        )
     )
+
+    # Tallennetaan kävijän tunniste selaimeen
+    response.set_cookie(
+        "visitor_id",
+        visitor_id,
+        max_age=60 * 60 * 24 * 365,
+        httponly=True,
+        samesite="Lax"
+    )
+
+    return response
 
 @app.route("/sitemap.xml")
 def sitemap():

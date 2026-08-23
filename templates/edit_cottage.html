@@ -1,146 +1,217 @@
-<!DOCTYPE html>
-<html lang="fi">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}
+Muokkaa lomaviikkoa | Viikkolomat
+{% endblock %}
 
-    <title>Muokkaa mökkiä</title>
-</head>
+{% block content %}
 
-<body>
+<section class="form-page">
 
-    <h1>Muokkaa mökkiä</h1>
+    <div class="form-intro">
 
-    <form method="POST">
+        <p class="eyebrow">
+            Ilmoituksen muokkaus
+        </p>
 
-        <label>Sijainti</label><br>
-        <input
-            type="text"
-            name="location"
-            value="{{ cottage.location or '' }}"
-        >
+        <h1>
+            Muokkaa lomaviikkoasi
+        </h1>
 
-        <br><br>
+        <p class="intro-text">
+            Voit päivittää ilmoituksesi tietoja alla olevalla lomakkeella.
+            Muutokset tallennetaan heti.
+        </p>
 
-        <label>Mökin nimi</label><br>
-        <input
-            type="text"
-            name="apartment"
-            value="{{ cottage.apartment or '' }}"
-        >
+    </div>
 
-        <br><br>
 
-        <label>Viikko</label><br>
-        <input
-            type="number"
-            name="week"
-            value="{{ cottage.week or '' }}"
-        >
+    <form method="POST" class="cottage-form">
 
-        <br><br>
+        <div class="form-section">
 
-        <label>Tyyppi</label><br>
-        <input
-            type="text"
-            name="type"
-            value="{{ cottage.type or '' }}"
-        >
+            <p class="eyebrow">
+                Lomaviikon tiedot
+            </p>
 
-        <br><br>
+            <label>
+                Sijainti
 
-        <label>Vuodepaikat</label><br>
-        <input
-            type="number"
-            name="beds"
-            value="{{ cottage.beds or '' }}"
-        >
+                <input
+                    type="text"
+                    name="location"
+                    value="{{ cottage.location or '' }}"
+                    required
+                >
+            </label>
 
-        <br><br>
+            <label>
+                Mökki / huoneisto
 
-        <label>Vuokra (€)</label><br>
-        <input
-            type="number"
-            step="0.01"
-            name="rent"
-            value="{{ cottage.rent or '' }}"
-        >
+                <input
+                    type="text"
+                    name="apartment"
+                    value="{{ cottage.apartment or '' }}"
+                    required
+                >
+            </label>
 
-        <br><br>
+            <label>
+                Viikko
 
-        <label>Myyntihinta</label><br>
-        <input
-            type="text"
-            name="sale"
-            value="{{ cottage.sale or '' }}"
-        >
+                <input
+                    type="number"
+                    name="week"
+                    min="1"
+                    max="53"
+                    value="{{ cottage.week or '' }}"
+                    required
+                >
+            </label>
 
-        <br><br>
+            <label>
+                Tyyppi
 
-        <label>Lisätiedot</label><br>
-        <textarea
-            name="extra"
-            rows="6"
-        >{{ cottage.extra or '' }}</textarea>
+                <input
+                    type="text"
+                    name="type"
+                    value="{{ cottage.type or '' }}"
+                >
+            </label>
 
-        <br><br>
+            <label>
+                Vuodepaikat
 
-        <label>Status</label><br>
+                <input
+                    type="text"
+                    name="beds"
+                    value="{{ cottage.beds or '' }}"
+                >
+            </label>
 
-        <select name="status">
+            <label>
+                Vuokra (€)
 
-            <option
-                value="Vapaa"
-                {% if cottage.status == "Vapaa" %}selected{% endif %}
+                <input
+                    type="number"
+                    name="rent"
+                    step="1"
+                    value="{{ cottage.rent or '' }}"
+                >
+            </label>
+
+            <label>
+                Myyntihinta
+
+                <input
+                    type="text"
+                    name="sale"
+                    value="{{ cottage.sale or '' }}"
+                >
+            </label>
+
+            <label>
+                Lisätiedot
+
+                <textarea
+                    name="extra"
+                    rows="5"
+                >{{ cottage.extra or '' }}</textarea>
+
+            </label>
+
+            <label>
+                Saatavuus
+
+                <select name="status">
+
+                    <option value="Vapaa"
+                        {% if cottage.status == "Vapaa" %}selected{% endif %}>
+                        Vapaa
+                    </option>
+
+                    <option value="Varattu"
+                        {% if cottage.status == "Varattu" %}selected{% endif %}>
+                        Varattu
+                    </option>
+
+                </select>
+
+            </label>
+
+        </div>
+
+
+        <div class="form-section">
+
+            <p class="eyebrow">
+                Yhteystiedot
+            </p>
+
+            <p class="form-help">
+                Nämä tiedot näkyvät ilmoituksesi yhteydessä.
+            </p>
+
+            <label>
+                Nimi
+
+                <input
+                    type="text"
+                    name="contact_name"
+                    value="{{ cottage.contact_name or '' }}"
+                >
+            </label>
+
+            <label>
+                Sähköposti
+
+                <input
+                    type="email"
+                    name="contact_email"
+                    value="{{ cottage.contact_email or '' }}"
+                    required
+                >
+            </label>
+
+            <label>
+                Puhelin
+
+                <input
+                    type="tel"
+                    name="contact_phone"
+                    value="{{ cottage.contact_phone or '' }}"
+                >
+            </label>
+
+        </div>
+
+
+        <div class="form-submit">
+
+            <div>
+
+                <strong>
+                    Tallenna muutokset
+                </strong>
+
+                <p>
+                    Ilmoituksesi päivitetään uusilla tiedoilla.
+                </p>
+
+            </div>
+
+            <button
+                type="submit"
+                class="primary-button"
             >
-                Vapaa
-            </option>
+                Tallenna muutokset
+                <span aria-hidden="true">↗</span>
+            </button>
 
-            <option
-                value="Varattu"
-                {% if cottage.status == "Varattu" %}selected{% endif %}
-            >
-                Varattu
-            </option>
-
-        </select>
-
-        <h2>Yhteystiedot</h2>
-
-        <label>Nimi</label><br>
-        <input
-            type="text"
-            name="contact_name"
-            value="{{ cottage.contact_name or '' }}"
-        >
-
-        <br><br>
-
-        <label>Sähköposti</label><br>
-        <input
-            type="email"
-            name="contact_email"
-            value="{{ cottage.contact_email or '' }}"
-        >
-
-        <br><br>
-
-        <label>Puhelin</label><br>
-        <input
-            type="tel"
-            name="contact_phone"
-            value="{{ cottage.contact_phone or '' }}"
-        >
-
-        <br><br>
-
-        <button type="submit">
-            Tallenna muutokset
-        </button>
+        </div>
 
     </form>
 
-</body>
+</section>
 
-</html>
+{% endblock %}
