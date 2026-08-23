@@ -223,6 +223,59 @@ def home():
 
     return response
 
+@app.route("/lomaviikot")
+def lomaviikot():
+
+    # Vanhat mökit
+    old_cottages = [
+        {**cottage, "contact": cottage.get("contact", DEFAULT_CONTACT)}
+        for cottage in COTTAGES
+    ]
+
+    # Supabasen julkaistut mökit
+    result = (
+        supabase
+        .table("cottages")
+        .select("*")
+        .eq("published", True)
+        .eq("payment_status", "paid")
+        .execute()
+    )
+
+    new_cottages = []
+
+    for cottage in result.data:
+        new_cottages.append({
+            "location": cottage.get("location", ""),
+            "apartment": cottage.get("apartment", ""),
+            "week": cottage.get("week"),
+            "type": cottage.get("type", ""),
+            "beds": cottage.get("beds", ""),
+            "rent": cottage.get("rent"),
+            "sale": cottage.get("sale", ""),
+            "extra": cottage.get("extra", ""),
+            "status": cottage.get("status", "Vapaa"),
+            "contact": {
+                "name": cottage.get("contact_name"),
+                "email": cottage.get("contact_email"),
+                "phone": cottage.get("contact_phone")
+            }
+        })
+
+    cottages = old_cottages + new_cottages
+
+    cottages.sort(
+        key=lambda cottage: (
+            cottage.get("week") is None,
+            cottage.get("week") or 999
+        )
+    )
+
+    return render_template(
+        "lomaviikot.html",
+        cottages=cottages
+    )
+
 @app.route("/<location>/viikko-<int:week>")
 def week_page(location, week):
 
@@ -315,7 +368,8 @@ def sitemap():
             )
 
     urls = [
-        "https://viikkolomat.com/"
+        "https://viikkolomat.com/",
+        "https://viikkolomat.com/lomaviikot"
     ]
 
     urls.extend(sorted(pages))

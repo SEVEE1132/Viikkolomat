@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vuokrattavat lomaviikot – löydä vapaa lomaviikko | Viikkolomat</title>
+
+    <meta
+        name="description"
+        content="Löydä vuokrattavat lomaviikot ja lomaosakkeet helposti. Selaa vapaita lomaviikkoja Leviltä, Katinkullasta ja muista lomakohteista."
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a class="brand" href="/">
+            Viikkolomat<span>.</span>
+        </a>
+
+        <a href="/" class="menu-btn">
+            Etusivulle
+        </a>
+
+    </div>
+
+</header>
+
+
+<main>
+
+    <section class="intro">
+
+        <p class="eyebrow">
+            Viikkolomat
+        </p>
+
+        <h1>
+            Vuokrattavat lomaviikot
+        </h1>
+
+        <p class="intro-text">
+            Löydä vapaa lomaviikko helposti. Viikkolomat kokoaa
+            vuokrattavat lomaviikot ja lomaosakkeet yhteen paikkaan.
+        </p>
+
+    </section>
+
+
+    <section class="info-section">
+
+        <p class="eyebrow">
+            Löydä seuraava lomasi
+        </p>
+
+        <h2>
+            Vapaat lomaviikot suosituissa lomakohteissa
+        </h2>
+
+        <p>
+            Etsitkö vuokrattavaa lomaviikkoa? Viikkolomat auttaa
+            löytämään vapaita lomaviikkoja eri puolilta Suomea.
+            Voit selata ilmoituksia esimerkiksi kohteen ja viikon
+            perusteella.
+        </p>
+
+        <p>
+            Palvelusta löytyy esimerkiksi Levin ja Katinkullan
+            lomaviikkoja. Jokaisessa ilmoituksessa näkyvät tärkeimmät
+            tiedot, kuten viikon numero, majoituksen tyyppi,
+            vuodepaikat ja vuokra.
+        </p>
+
+    </section>
+
+
+    <section class="listing-section">
+
+        <div class="section-heading">
+
+            <div>
+                <p class="eyebrow">
+                    Kaikki ilmoitukset
+                </p>
+
+                <h2>
+                    Lomaviikot
+                </h2>
+            </div>
+
+        </div>
+
+
+        <div class="cottage-grid">
+
+            {% for cottage in cottages %}
+
+            <article class="cottage-card">
+
+                <div class="card-topline">
+
+                    <span class="location">
+                        {{ cottage.location }}
+                    </span>
+
+                    <span class="status status-{{ cottage.status|lower }}">
+                        {{ cottage.status }}
+                    </span>
+
+                </div>
+
+                <h3>
+                    {{ cottage.apartment }}
+                </h3>
+
+                <p class="cottage-type">
+                    {{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa
+                </p>
+
+                <div class="card-details">
+
+                    <div>
+                        <span>Viikko</span>
+                        <strong>{{ cottage.week }}</strong>
+                    </div>
+
+                    <div>
+                        <span>Vuokra</span>
+                        <strong>{{ cottage.rent }} €</strong>
+                    </div>
+
+                    {% if cottage.extra %}
+
+                    <div>
+                        <span>Lisätietoja</span>
+                        <strong>{{ cottage.extra }}</strong>
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="card-contact">
+
+                    <span class="contact-label">
+                        Yhteystiedot
+                    </span>
+
+                    {% if cottage.contact.name %}
+                        <strong>{{ cottage.contact.name }}</strong>
+                    {% endif %}
+
+                    {% if cottage.contact.email %}
+
+                        <a href="mailto:{{ cottage.contact.email }}">
+                            {{ cottage.contact.email }}
+                        </a>
+
+                    {% endif %}
+
+                    {% if cottage.contact.phone %}
+
+                        <a href="tel:{{ cottage.contact.phone|replace(' ', '') }}">
+                            {{ cottage.contact.phone }}
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <section class="info-section">
+
+        <p class="eyebrow">
+            Lomaviikon vuokraaminen
+        </p>
+
+        <h2>
+            Löydä sopiva lomaviikko ja ota yhteyttä ilmoittajaan
+        </h2>
+
+        <p>
+            Kun löydät sopivan lomaviikon, voit ottaa suoraan yhteyttä
+            ilmoituksessa olevaan yhteyshenkilöön. Varaus ja sen ehdot
+            sovitaan suoraan ilmoittajan kanssa.
+        </p>
+
+    </section>
+
+
+    <section class="contact-section">
+
+        <div>
+
+            <p class="eyebrow">
+                Oletko lomaviikon omistaja?
+            </p>
+
+            <h2>
+                Lisää oma lomaviikkosi Viikkolomiin.
+            </h2>
+
+        </div>
+
+        <a
+            class="primary-link"
+            href="/lisaa-mokki"
+        >
+            Lisää oma lomaviikkosi
+            <span aria-hidden="true">↗</span>
+        </a>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <p>
+        &copy; 2026 Viikkolomat
+    </p>
+
+</footer>
+
+
+</body>
+</html>

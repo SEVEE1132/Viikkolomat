@@ -6,7 +6,9 @@
     <meta name="language" content="fi">
     <meta name="google-site-verification" content="ZvPSX9ago8fkIENfyQVBE9isE8Fkn2aQGhRnGHVarCY">
     <meta name="google-site-verification" content="7Xsnw9cD2YBpkojBJQSwdu8-KO4euEMFA5-X7NuHUYY">
-    <title>Viikkolomat | Vuokrattavat lomaviikot</title>
+    <meta name="description" content="Löydä vuokrattavat lomaviikot, lomaosakkeet ja mökit helposti. Viikkolomat kokoaa vapaat lomaviikot yhteen paikkaan.">
+    <meta name="keywords" content="lomaviikot, vuokrattavat lomaviikot, lomaosakkeet, lomaosakkeen vuokraus, mökit, lomamökit, viikko-osakkeet">
+    <title>Vuokrattavat lomaviikot ja lomaosakkeet | Viikkolomat</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634667202963008" crossorigin="anonymous"></script>
 </head>
@@ -16,6 +18,7 @@
             <a class="brand" href="/">Viikkolomat<span>.</span></a>
             <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menuDropdown">Valikko</button>
             <nav class="menu-dropdown" id="menuDropdown" aria-label="Päänavigaatio">
+                <a href="/lomaviikot">Lomaviikot</a>
                 <a href="#cottages">Vuokrattavat viikot</a>
                 <a href="#about">Tietoa</a>
                 <a href="#contact">Yhteystiedot</a>
@@ -25,7 +28,7 @@
     <main>
         <section class="intro" aria-labelledby="page-title">
             <p class="eyebrow">Löydä seuraava lomasi</p>
-            <h1 id="page-title">Vuokrattavat lomaviikot</h1>
+            <h1 id="page-title">Lomaviikot ja vuokrattavat lomaosakkeet</h1>
             <p class="intro-text">Selkeät kohteet, ajantasainen saatavuus ja suora yhteys varausta varten.</p>
             <a href="/lisaa-mokki" class="primary-button">
                 Lisää oma lomaviikkosi
@@ -156,7 +159,26 @@
             </div>
             <p id="noResults" class="no-results" hidden>Valituilla suodattimilla ei löytynyt lomaviikkoja.</p>
         </section>
-        <section id="about" class="info-section"><p class="eyebrow">Tietoa palvelusta</p><h2>Viikkolomat kokoaa vapaat lomaosakkeet ja vuokrattavat viikot yhteen paikkaan. Varaus sovitaan suoraan ilmoittajan kanssa.</h2></section>
+        <section id="about" class="info-section">
+
+            <p class="eyebrow">Tietoa palvelusta</p>
+
+            <h2>
+                Vuokrattavat lomaviikot ja lomaosakkeet helposti yhdestä paikasta.
+            </h2>
+
+            <p>
+                Viikkolomat kokoaa vuokrattavat lomaviikot ja lomaosakkeet
+                yhteen palveluun. Löydät esimerkiksi Levin ja Katinkullan
+                lomaviikkoja eri ajankohdille.
+            </p>
+
+            <p>
+                Selaa vapaita lomaviikkoja viikon, kohteen ja saatavuuden mukaan.
+                Varaus sovitaan suoraan ilmoittajan kanssa.
+            </p>
+
+        </section>
         <section id="contact" class="contact-section"><div><p class="eyebrow">Ota yhteyttä</p><h2>Löysitkö sopivan viikon tai haluatko myydä omasi?</h2></div><a class="primary-link" href="mailto:lomaviikot@outlook.com">lomaviikot@outlook.com <span aria-hidden="true">↗</span></a></section>
     </main>
     <footer><p>&copy; 2026 Viikkolomat</p></footer>
