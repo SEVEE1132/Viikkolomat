@@ -223,9 +223,122 @@ def home():
 
     return response
 
+@app.route("/<location>/viikko-<int:week>")
+def week_page(location, week):
+
+    location_name = location.replace("-", " ").title()
+
+    # Vanhat mökit
+    old_cottages = [
+        {**cottage, "contact": cottage.get("contact", DEFAULT_CONTACT)}
+        for cottage in COTTAGES
+    ]
+
+    # Supabasen julkaistut mökit
+    result = (
+        supabase
+        .table("cottages")
+        .select("*")
+        .eq("published", True)
+        .eq("payment_status", "paid")
+        .execute()
+    )
+
+    new_cottages = []
+
+    for cottage in result.data:
+        new_cottages.append({
+            "location": cottage.get("location", ""),
+            "apartment": cottage.get("apartment", ""),
+            "week": cottage.get("week"),
+            "type": cottage.get("type", ""),
+            "beds": cottage.get("beds", ""),
+            "rent": cottage.get("rent"),
+            "sale": cottage.get("sale", ""),
+            "extra": cottage.get("extra", ""),
+            "status": cottage.get("status", "Vapaa"),
+            "contact": {
+                "name": cottage.get("contact_name"),
+                "email": cottage.get("contact_email"),
+                "phone": cottage.get("contact_phone")
+            }
+        })
+
+    cottages = old_cottages + new_cottages
+
+    # Etsitään kyseisen paikan ja viikon ilmoitukset
+    matching_cottages = [
+        cottage
+        for cottage in cottages
+        if cottage.get("location", "").lower() == location_name.lower()
+        and cottage.get("week") == week
+    ]
+
+    # Jos sivua ei ole olemassa
+    if not matching_cottages:
+        return "Lomaviikkoa ei löytynyt.", 404
+
+    return render_template(
+        "week.html",
+        cottages=matching_cottages,
+        location=location_name,
+        week=week
+    )
+
 @app.route("/sitemap.xml")
 def sitemap():
-    return send_from_directory(".", "sitemap.xml")
+
+    old_cottages = COTTAGES
+
+    result = (
+        supabase
+        .table("cottages")
+        .select("location, week")
+        .eq("published", True)
+        .eq("payment_status", "paid")
+        .execute()
+    )
+
+    cottages = old_cottages + result.data
+
+    pages = set()
+
+    for cottage in cottages:
+
+        location = cottage.get("location")
+        week = cottage.get("week")
+
+        if location and week:
+            location_slug = location.lower().replace(" ", "-")
+            pages.add(
+                f"https://viikkolomat.com/{location_slug}/viikko-{week}"
+            )
+
+    urls = [
+        "https://viikkolomat.com/"
+    ]
+
+    urls.extend(sorted(pages))
+
+    xml = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+"""
+
+    for url in urls:
+        xml += f"""
+    <url>
+        <loc>{url}</loc>
+    </url>
+"""
+
+    xml += """
+</urlset>
+"""
+
+    response = make_response(xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
 
 @app.route("/lisaa-mokki", methods=["GET", "POST"])
 def lisaa_mokki():
