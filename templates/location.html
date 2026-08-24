@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vuokrattavat lomaviikot kohteessa {{ location }} | Viikkolomat</title>
+    <meta name="description" content="Löydä vuokrattavat lomaviikot kohteessa {{ location }}. Selaa vapaita lomaosakkeita, hintoja ja viikkokohtaisia ilmoituksia.">
+    <link rel="canonical" href="https://viikkolomat.com/{{ location_slug }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+    <div class="header-inner">
+        <a class="brand" href="/">Viikkolomat<span>.</span></a>
+        <a href="/lomaviikot" class="menu-btn">Kaikki lomaviikot</a>
+    </div>
+</header>
+
+<main>
+    <section class="intro">
+        <p class="eyebrow">Vuokrattavat lomaviikot</p>
+        <h1>Vuokrattavat lomaviikot kohteessa {{ location }}</h1>
+        <p class="intro-text">Selaa kohteen {{ location }} ilmoituksia, vapaita lomaviikkoja ja lomaosakkeita.</p>
+    </section>
+
+    <section class="listing-section">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">{{ location }}</p>
+                <h2>Kaikki lomaviikot kohteessa {{ location }}</h2>
+            </div>
+        </div>
+
+        <div class="cottage-grid">
+            {% for cottage in cottages %}
+            <article class="cottage-card">
+                <div class="card-topline">
+                    <span class="location">{{ cottage.location }}</span>
+                    <span class="status status-{{ cottage.status|lower }}">{{ cottage.status }}</span>
+                </div>
+                <h3>{{ cottage.apartment }}</h3>
+                {% if cottage.id %}
+                <a href="{{ url_for('cottage_page', cottage_id=cottage.id) }}">Katso ilmoitus</a>
+                {% endif %}
+                <p class="cottage-type">{{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa</p>
+                <div class="card-details">
+                    <div><span>Viikko</span><strong>{{ cottage.week }}</strong></div>
+                    <div><span>Vuokra</span><strong>{{ cottage.rent }} €</strong></div>
+                    {% if cottage.extra %}<div><span>Lisätietoja</span><strong>{{ cottage.extra }}</strong></div>{% endif %}
+                </div>
+                <p><a href="/{{ location_slug }}/viikko-{{ cottage.week }}">Katso viikon {{ cottage.week }} kaikki ilmoitukset</a></p>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="info-section">
+        <p class="eyebrow">Viikkolomat</p>
+        <h2>Lomaviikon vuokraaminen kohteessa {{ location }}</h2>
+        <p>Viikkolomat kokoaa kohteen {{ location }} vuokrattavat lomaviikot yhteen paikkaan. Tutustu ilmoitusten hintoihin, majoitustietoihin ja saatavuuteen sekä ota suoraan yhteyttä ilmoittajaan.</p>
+    </section>
+</main>
+
+<footer><p>&copy; 2026 Viikkolomat</p></footer>
+</body>
+</html>

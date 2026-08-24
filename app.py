@@ -302,6 +302,68 @@ def lomaviikot():
         cottages=cottages
     )
 
+@app.route("/<location>")
+def location_page(location):
+    location_name = location.replace("-", " ").title()
+
+    old_cottages = [
+        {**cottage, "contact": cottage.get("contact", DEFAULT_CONTACT)}
+        for cottage in COTTAGES
+    ]
+
+    result = (
+        supabase
+        .table("cottages")
+        .select("*")
+        .eq("published", True)
+        .eq("payment_status", "paid")
+        .execute()
+    )
+
+    new_cottages = []
+
+    for cottage in result.data:
+        new_cottages.append({
+            "id": cottage.get("id"),
+            "location": cottage.get("location", ""),
+            "apartment": cottage.get("apartment", ""),
+            "week": cottage.get("week"),
+            "type": cottage.get("type", ""),
+            "beds": cottage.get("beds", ""),
+            "rent": cottage.get("rent"),
+            "sale": cottage.get("sale", ""),
+            "extra": cottage.get("extra", ""),
+            "status": cottage.get("status", "Vapaa"),
+            "contact": {
+                "name": cottage.get("contact_name"),
+                "email": cottage.get("contact_email"),
+                "phone": cottage.get("contact_phone")
+            }
+        })
+
+    cottages = old_cottages + new_cottages
+    matching_cottages = [
+        cottage for cottage in cottages
+        if cottage.get("location", "").lower() == location_name.lower()
+    ]
+
+    if not matching_cottages:
+        return "Kohdetta ei löytynyt.", 404
+
+    matching_cottages.sort(
+        key=lambda cottage: (
+            cottage.get("week") is None,
+            cottage.get("week") or 999
+        )
+    )
+
+    return render_template(
+        "location.html",
+        cottages=matching_cottages,
+        location=location_name,
+        location_slug=location.lower()
+    )
+
 @app.route("/<location>/viikko-<int:week>")
 def week_page(location, week):
 
@@ -382,6 +444,7 @@ def sitemap():
     cottages = old_cottages + result.data
 
     pages = set()
+    locations = set()
 
     for cottage in cottages:
 
@@ -390,6 +453,7 @@ def sitemap():
 
         if location and week:
             location_slug = location.lower().replace(" ", "-")
+            locations.add(location_slug)
             pages.add(
                 f"https://viikkolomat.com/{location_slug}/viikko-{week}"
             )
@@ -403,6 +467,10 @@ def sitemap():
         "https://viikkolomat.com/lomaviikot"
     ]
 
+    urls.extend(
+        f"https://viikkolomat.com/{location_slug}"
+        for location_slug in sorted(locations)
+    )
     urls.extend(sorted(pages))
 
     xml = """<?xml version="1.0" encoding="UTF-8"?>
