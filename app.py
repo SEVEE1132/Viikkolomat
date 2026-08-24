@@ -96,6 +96,7 @@ def home():
     for cottage in result.data:
 
         new_cottages.append({
+            "id": cottage.get("id"),
             "location": cottage.get("location", ""),
             "apartment": cottage.get("apartment", ""),
             "week": cottage.get("week"),
@@ -223,6 +224,30 @@ def home():
 
     return response
 
+@app.route("/lomaviikot/<int:cottage_id>")
+def cottage_page(cottage_id):
+
+    result = (
+        supabase
+        .table("cottages")
+        .select("*")
+        .eq("id", cottage_id)
+        .eq("published", True)
+        .eq("payment_status", "paid")
+        .single()
+        .execute()
+    )
+
+    cottage = result.data
+
+    if not cottage:
+        return "Lomaviikkoa ei löytynyt.", 404
+
+    return render_template(
+        "cottage.html",
+        cottage=cottage
+    )
+
 @app.route("/lomaviikot")
 def lomaviikot():
 
@@ -246,6 +271,7 @@ def lomaviikot():
 
     for cottage in result.data:
         new_cottages.append({
+            "id": cottage.get("id"),
             "location": cottage.get("location", ""),
             "apartment": cottage.get("apartment", ""),
             "week": cottage.get("week"),
@@ -301,6 +327,7 @@ def week_page(location, week):
 
     for cottage in result.data:
         new_cottages.append({
+            "id": cottage.get("id"),
             "location": cottage.get("location", ""),
             "apartment": cottage.get("apartment", ""),
             "week": cottage.get("week"),
@@ -346,7 +373,7 @@ def sitemap():
     result = (
         supabase
         .table("cottages")
-        .select("location, week")
+        .select("id, location, week")
         .eq("published", True)
         .eq("payment_status", "paid")
         .execute()
@@ -366,6 +393,10 @@ def sitemap():
             pages.add(
                 f"https://viikkolomat.com/{location_slug}/viikko-{week}"
             )
+
+        cottage_id = cottage.get("id")
+        if cottage_id:
+            pages.add(f"https://viikkolomat.com/lomaviikot/{cottage_id}")
 
     urls = [
         "https://viikkolomat.com/",
@@ -392,6 +423,20 @@ def sitemap():
     response = make_response(xml)
     response.headers["Content-Type"] = "application/xml"
 
+    return response
+
+@app.route("/robots.txt")
+def robots():
+    response = make_response("""User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /muokkaa-mokkia/
+Disallow: /lisaa-mokki
+
+Sitemap: https://viikkolomat.com/sitemap.xml
+""")
+    response.headers["Content-Type"] = "text/plain; charset=utf-8"
     return response
 
 @app.route("/lisaa-mokki", methods=["GET", "POST"])

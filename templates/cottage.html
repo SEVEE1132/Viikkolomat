@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {{ cottage.location }} – {{ cottage.apartment }} – viikko {{ cottage.week }} | Viikkolomat
+    </title>
+
+    <meta
+        name="description"
+        content="Vuokrattava lomaviikko {{ cottage.week }} kohteessa {{ cottage.location }}. {{ cottage.type }}, {{ cottage.beds }} vuodepaikkaa ja vuokra {{ cottage.rent }} €."
+    >
+
+    <link
+        rel="canonical"
+        href="https://viikkolomat.com/lomaviikot/{{ cottage.id }}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+<header class="site-header">
+
+    <div class="header-inner">
+
+        <a class="brand" href="/">
+            Viikkolomat<span>.</span>
+        </a>
+
+        <a href="/" class="menu-btn">
+            Etusivulle
+        </a>
+
+    </div>
+
+</header>
+
+<main>
+
+    <section class="intro">
+
+        <p class="eyebrow">
+            {{ cottage.location }} · Viikko {{ cottage.week }}
+        </p>
+
+        <h1>
+            {{ cottage.apartment }}
+        </h1>
+
+        <p class="intro-text">
+            Vuokrattava lomaviikko kohteessa {{ cottage.location }}.
+        </p>
+
+    </section>
+
+
+    <section class="listing-section">
+
+        <article class="cottage-card">
+
+            <div class="card-topline">
+
+                <span class="location">
+                    {{ cottage.location }}
+                </span>
+
+                <span class="status status-{{ cottage.status|lower }}">
+                    {{ cottage.status }}
+                </span>
+
+            </div>
+
+            <h3>
+                {{ cottage.apartment }}
+            </h3>
+
+            <p class="cottage-type">
+                {{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa
+            </p>
+
+            <div class="card-details">
+
+                <div>
+                    <span>Viikko</span>
+                    <strong>{{ cottage.week }}</strong>
+                </div>
+
+                <div>
+                    <span>Vuokra</span>
+                    <strong>{{ cottage.rent }} €</strong>
+                </div>
+
+                {% if cottage.extra %}
+                <div>
+                    <span>Lisätietoja</span>
+                    <strong>{{ cottage.extra }}</strong>
+                </div>
+                {% endif %}
+
+            </div>
+
+            <div class="card-contact">
+
+                <span class="contact-label">
+                    Yhteystiedot
+                </span>
+
+                {% if cottage.contact_name %}
+                    <strong>{{ cottage.contact_name }}</strong>
+                {% endif %}
+
+                {% if cottage.contact_email %}
+                    <a href="mailto:{{ cottage.contact_email }}">
+                        {{ cottage.contact_email }}
+                    </a>
+                {% endif %}
+
+                {% if cottage.contact_phone %}
+                    <a href="tel:{{ cottage.contact_phone|replace(' ', '') }}">
+                        {{ cottage.contact_phone }}
+                    </a>
+                {% endif %}
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <section class="info-section">
+
+        <p class="eyebrow">
+            Lomaviikko {{ cottage.week }}
+        </p>
+
+        <h2>
+            Vuokrattava lomaviikko {{ cottage.location }}ssa
+        </h2>
+
+        <p>
+            Tämä on Viikkolomat-palvelussa julkaistu lomaviikko
+            kohteessa {{ cottage.location }}.
+            Majoituksessa on {{ cottage.beds }} vuodepaikkaa.
+        </p>
+
+        <p>
+            Viikon numero on {{ cottage.week }} ja ilmoituksen
+            vuokra on {{ cottage.rent }} euroa.
+        </p>
+
+    </section>
+
+
+    <section class="contact-section">
+
+        <div>
+            <p class="eyebrow">
+                Kiinnostuitko?
+            </p>
+
+            <h2>
+                Ota yhteyttä ilmoittajaan
+            </h2>
+        </div>
+
+        {% if cottage.contact_email %}
+
+        <a
+            class="primary-link"
+            href="mailto:{{ cottage.contact_email }}"
+        >
+            Ota yhteyttä
+            <span aria-hidden="true">↗</span>
+        </a>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 Viikkolomat</p>
+</footer>
+
+</body>
+</html>

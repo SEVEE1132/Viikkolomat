@@ -15,6 +15,11 @@
     >
 
     <link
+        rel="canonical"
+        href="https://viikkolomat.com/{{ location|lower|replace(' ', '-') }}/viikko-{{ week }}"
+    >
+
+    <link
         rel="stylesheet"
         href="{{ url_for('static', filename='style.css') }}"
     >
@@ -96,6 +101,12 @@
                 <h3>
                     {{ cottage.apartment }}
                 </h3>
+
+                {% if cottage.id %}
+                <a href="{{ url_for('cottage_page', cottage_id=cottage.id) }}">
+                    Katso ilmoitus
+                </a>
+                {% endif %}
 
                 <p class="cottage-type">
                     {{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa

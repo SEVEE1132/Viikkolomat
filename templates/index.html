@@ -9,6 +9,7 @@
     <meta name="description" content="Löydä vuokrattavat lomaviikot, lomaosakkeet ja mökit helposti. Viikkolomat kokoaa vapaat lomaviikot yhteen paikkaan.">
     <meta name="keywords" content="lomaviikot, vuokrattavat lomaviikot, lomaosakkeet, lomaosakkeen vuokraus, mökit, lomamökit, viikko-osakkeet">
     <title>Vuokrattavat lomaviikot ja lomaosakkeet | Viikkolomat</title>
+    <link rel="canonical" href="https://viikkolomat.com/">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6634667202963008" crossorigin="anonymous"></script>
 </head>
@@ -96,6 +97,12 @@
                             </div>
 
                             <h3>{{ cottage.apartment }}</h3>
+
+                            {% if cottage.id %}
+                            <a href="{{ url_for('cottage_page', cottage_id=cottage.id) }}">
+                                Katso ilmoitus
+                            </a>
+                            {% endif %}
 
                             <p class="cottage-type">
                                 {{ cottage.type }} · {{ cottage.beds }} vuodepaikkaa
