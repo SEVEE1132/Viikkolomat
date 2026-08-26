@@ -585,6 +585,25 @@ def admin_mokit():
         cottages=cottages
     )
 
+@app.route("/admin/poista/<int:cottage_id>", methods=["POST"])
+def poista_mokki(cottage_id):
+
+    if not session.get("admin_logged_in"):
+        return redirect("/admin/login")
+
+    result = (
+        supabase
+        .table("cottages")
+        .delete()
+        .eq("id", cottage_id)
+        .eq("payment_status", "pending")
+        .execute()
+    )
+
+    if not result.data:
+        return "Odottavaa mökkiä ei löytynyt.", 404
+
+    return redirect("/admin/mokit")
 
 @app.route("/admin/hyvaksy/<int:cottage_id>", methods=["POST"])
 def hyvaksy_mokki(cottage_id):

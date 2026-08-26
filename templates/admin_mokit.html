@@ -76,16 +76,32 @@
                     {{ cottage.payment_status }}
                 </p>
 
-                <form
-                    method="POST"
-                    action="/admin/hyvaksy/{{ cottage.id }}"
-                >
+                <div style="display: flex; gap: 10px; align-items: center;">
 
-                    <button type="submit">
-                        Maksu vastaanotettu – julkaise mökki
-                    </button>
+                    <form
+                        method="POST"
+                        action="/admin/hyvaksy/{{ cottage.id }}"
+                    >
 
-                </form>
+                        <button type="submit">
+                            Maksu vastaanotettu – julkaise mökki
+                        </button>
+
+                    </form>
+
+                    <form
+                        method="POST"
+                        action="/admin/poista/{{ cottage.id }}"
+                        onsubmit="return confirm('Poistetaanko tämä mökki kokonaan tietokannasta?');"
+                    >
+
+                        <button type="submit">
+                            Poista mökki
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
