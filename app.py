@@ -48,7 +48,11 @@ COTTAGES = [
     {"location": "Katinkulta", "apartment": "14l1", "week": 52, "type": "", "beds": "", "rent": 750, "sale": "", "extra": "", "status": "Vapaa"},
 ]
 
-DEFAULT_CONTACT = {"email": "lomaviikot@outlook.com"}
+DEFAULT_CONTACT = {
+    "name": "Ari H",
+    "email": "lomaviikot@outlook.com",
+    "phone": "040 0829928"
+}
 
 @app.route("/")
 def home():
