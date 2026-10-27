@@ -46,6 +46,12 @@
                 <div class="card-details">
                     <div><span>Viikko</span><strong>{{ cottage.week }}</strong></div>
                     <div><span>Vuokra</span><strong>{{ cottage.rent }} €</strong></div>
+                                {% if cottage.sale %}
+                                <div>
+                                    <span>Myyntihinta</span>
+                                    <strong>{{ cottage.sale }} €</strong>
+                                </div>
+                                {% endif %}
                     {% if cottage.extra %}<div><span>Lisätietoja</span><strong>{{ cottage.extra }}</strong></div>{% endif %}
                 </div>
                 <p><a href="/{{ location_slug }}/viikko-{{ cottage.week }}">Katso viikon {{ cottage.week }} kaikki ilmoitukset</a></p>

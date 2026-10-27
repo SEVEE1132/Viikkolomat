@@ -96,6 +96,12 @@
                     <span>Vuokra</span>
                     <strong>{{ cottage.rent }} €</strong>
                 </div>
+                                {% if cottage.sale %}
+                                <div>
+                                    <span>Myyntihinta</span>
+                                    <strong>{{ cottage.sale }} €</strong>
+                                </div>
+                                {% endif %}
 
                 {% if cottage.extra %}
                 <div>
@@ -135,28 +141,7 @@
     </section>
 
 
-    <section class="info-section">
 
-        <p class="eyebrow">
-            Lomaviikko {{ cottage.week }}
-        </p>
-
-        <h2>
-            Vuokrattava lomaviikko {{ cottage.location }}ssa
-        </h2>
-
-        <p>
-            Tämä on Viikkolomat-palvelussa julkaistu lomaviikko
-            kohteessa {{ cottage.location }}.
-            Majoituksessa on {{ cottage.beds }} vuodepaikkaa.
-        </p>
-
-        <p>
-            Viikon numero on {{ cottage.week }} ja ilmoituksen
-            vuokra on {{ cottage.rent }} euroa.
-        </p>
-
-    </section>
 
 
     <section class="contact-section">

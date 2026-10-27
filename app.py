@@ -18,11 +18,11 @@ supabase = create_client(
 resend.api_key = os.environ.get("RESEND_API_KEY")
 
 COTTAGES = [
-    {"location": "Levi", "apartment": "Aruudenia M", "week": 8, "type": "2mh+parvi", "beds": "6", "rent": 780, "sale": "", "extra": "", "status": "Vapaa"},
-    {"location": "Levi", "apartment": "Rakkavaara Club1 A1", "week": 8, "type": "2mh", "beds": "4+2", "rent": 690, "sale": "", "extra": "", "status": "Vapaa"},
+    {"location": "Levi", "apartment": "Aruudenia M", "week": 8, "type": "2mh+parvi", "beds": "6", "rent": 780, "sale": "", "extra": "", "status": "Varattu"},
+    {"location": "Levi", "apartment": "Rakkavaara Club1 A1", "week": 8, "type": "2mh", "beds": "4+2", "rent": 690, "sale": "", "extra": "", "status": "Varattu"},
     {"location": "Katinkulta", "apartment": "13C2", "week": 8, "type": "1mh+parvi", "beds": "4+2", "rent": 890, "sale": "", "extra": "", "status": "Vapaa"},
     {"location": "Katinkulta", "apartment": "2A2", "week": 8, "type": "2mh+parvi", "beds": "6", "rent": 1150, "sale": "", "extra": "", "status": "Vapaa"},
-    {"location": "Katinkulta", "apartment": "17C1", "week": 8, "type": "2mh", "beds": "4+2", "rent": 920, "sale": "", "extra": "", "status": "Vapaa"},
+    {"location": "Katinkulta", "apartment": "17C1", "week": 8, "type": "2mh", "beds": "4+2", "rent": 920, "sale": "", "extra": "", "status": "Varattu"},
     {"location": "Katinkulta", "apartment": "13B5", "week": 8, "type": "1mh+parvi", "beds": "4+2", "rent": 890, "sale": "", "extra": "", "status": "Vapaa"},
     {"location": "Katinkulta", "apartment": "6A2", "week": 11, "type": "2mh+parvi", "beds": "6", "rent": 850, "sale": "", "extra": "", "status": "Vapaa"},
     {"location": "Levi", "apartment": "Rakkavaara Club1 B1", "week": 11, "type": "1mh+parvi", "beds": "4+2", "rent": 730, "sale": "", "extra": "", "status": "Vapaa"},

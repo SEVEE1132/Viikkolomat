@@ -18,7 +18,9 @@ const populateFilter = (select, values, label) => {
     values.forEach((value) => {
         const option = document.createElement('option');
         option.value = value;
-        option.textContent = value;
+        option.textContent = select === locationFilter
+            ? String(value).charAt(0).toLocaleUpperCase('fi-FI') + String(value).slice(1)
+            : value;
         select.appendChild(option);
     });
 };
